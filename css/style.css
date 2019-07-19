@@ -24,10 +24,23 @@ header {
 	text-align: center;
 }
 
+header span {
+	color: #fff;
+	font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+	letter-spacing: 1.5mm;
+	position: relative;
+	top: 1vh;
+	font-size: 3.5em;
+	top: 10px;
+	text-shadow: 0.5px 0.5px #094e00;
+}
+
 h1 {
+	font-family: 'Raleway', Arial, Helvetica, sans-serif;
 	font-size: 2.5em;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
 	margin: 0;
+	text-shadow: 2px 2px #094e00;
 }
 
 a {
@@ -118,6 +131,35 @@ button {
 	border: 2px solid black;
 	border-radius: 4px;
 	transition: all 0.5s;
+	animation: pulse 2s infinite;
+}
+/* Credit:
+https://stackoverflow.com/questions/44513333/how-to-create-a-pulse-effect-on-an-image-for-a-couple-seconds-when-the-page-load
+*/
+@-webkit-keyframes pulse {
+	0% {
+		-webkit-box-shadow: 0 0 0 0 #6ac773;
+	}
+	70% {
+		-webkit-box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+	}
+	100% {
+		-webkit-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+	}
+}
+@keyframes pulse {
+	0% {
+		-moz-box-shadow: 0 0 0 0 rgba(6ac773);
+		box-shadow: 0 0 0 0 #6ac773;
+	}
+	70% {
+		-moz-box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+		box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+	}
+	100% {
+		-moz-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+	}
 }
 
 button:hover {
