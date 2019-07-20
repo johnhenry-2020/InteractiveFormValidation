@@ -45,7 +45,7 @@ input.id = 'other-title';
 input.placeholder = 'Your Job Role';
 
 /*=================================================================
-						”Job Role” section Functionality
+						”Job Role” Functionality
 ==================================================================*/
 /* hides job role input field in order to get job role
 input feature to work when JS is disabled in user's browser*/
@@ -67,7 +67,7 @@ const getSelectValue = () => {
 getSelectValue();
 
 /*===================================================================
-						”T - Shirt Info” Section Functionality
+						”T - Shirt Info” Functionality
 ====================================================================*/
 
 const design = document.getElementById('design');
@@ -125,7 +125,6 @@ $($('#design')).on('change', function() {
 		//If user selects "Heart" design
 		clearColorOptions();
 		color.style.display = '';
-		// console.log('heart is working');
 		$('#color').append('<option class="heartJsColors" value="tomato">Tomato (I &#9829; JS shirt only)</option>');
 		$('#color').append(
 			'<option class="heartJsColors" value="steelblue">Steel Blue (I &#9829; JS shirt only)</option>'
@@ -135,5 +134,98 @@ $($('#design')).on('change', function() {
 		//if user selects nothing...
 	} else {
 		color.style.display = 'none';
+	}
+});
+
+/*===================================================================
+						”Register For Activities” Functionality
+====================================================================*/
+//Create new "total" div and hide it upon page load.
+$('.activities').append('<div class="totalDiv"><label name="total-amount" class="total-display">Total: </label></div>');
+$('.totalDiv').addClass('is-hidden');
+
+//Calculate and display totals
+let $total = 0;
+const activityType = document.querySelector('.activities');
+
+//when any checkbox is checked...
+$('input:checkbox').on('change', function() {
+	if ($(this).is(':checked')) {
+		//show the "total: " div
+		$('.totalDiv').removeClass('is-hidden');
+		//calculate total amount based on value of checkbox
+		$total += +this.value;
+
+		//add the checkbox value to the div
+		$('.total-display').html('Total: $' + parseInt($total));
+	} else if (($('#Workshops input:checkbox:checked').length = 1)) {
+		//if a checkbox is unselected, subtract value
+		$total -= +this.value;
+		//and display the updated total
+		$('.total-display').html('Total: $' + parseInt($total));
+	}
+});
+
+//REAL TIME REGISTRATION VALIDATION
+function regValidation() {
+	var n = $('input:checked').length;
+	if (n === 0) {
+		$('.totalDiv').addClass('is-hidden');
+
+		activityLegend.innerText = 'Please choose an activity.';
+		activityLegend.classList.add('errorText');
+	} else {
+		activityLegend.textContent = 'Register for Activities';
+		activityLegend.classList.remove('errorText');
+	}
+}
+
+$('input:checkbox').on('click', regValidation);
+
+//Account for event overlaps.
+
+const $jsFrameWorks = $('input[name="js-frameworks"]');
+const $jslibs = $('input[name="js-libs"]');
+const $express = $('input[name="express"]');
+const $node = $('input[name="node"]');
+const activityLegend = document.querySelector('form .actitity-legend');
+
+//If the "Frameworks" checkbox is checked...
+$jsFrameWorks.change(function() {
+	if ($(this).is(':checked')) {
+		//disable
+		$express.prop('disabled', true);
+	} else {
+		$express.prop('disabled', false);
+	}
+});
+
+//If the "Libraries" checkbox is checked...
+$jslibs.change(function() {
+	if ($(this).is(':checked')) {
+		//disable
+		$node.prop('disabled', true);
+	} else {
+		$node.prop('disabled', false);
+	}
+});
+
+//If the "Express" checkbox is checked...
+$express.change(function() {
+	if ($(this).is(':checked')) {
+		//disable
+		$jsFrameWorks.prop('disabled', true);
+	} else {
+		$jsFrameWorks.prop('disabled', false);
+	}
+});
+
+//If the "Node.js" checkbox is checked...
+$node.change(function() {
+	if ($(this).is(':checked')) {
+		//disable
+		$jslibs.prop('disabled', true);
+	} else {
+		$jslibs.prop('disabled', false);
 	}
 });

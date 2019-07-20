@@ -31,6 +31,11 @@
 
     <form action="index.html" method="post">
 
+
+
+<!-- ====================================================================
+                  JOB ROLE SECTION
+===================================================================== -->
       <fieldset class="basicinfo">
         <legend>Basic Info</legend>
 
@@ -56,6 +61,10 @@
         <input type="text" id="js-disabled-input" placeholder="Job Role"></input>
       </fieldset>
 
+
+<!-- ====================================================================
+                  T-SHIRT INFO SECTION
+===================================================================== -->
 <fieldset class="shirt">
   <legend>T-Shirt Info</legend>
 
@@ -91,18 +100,27 @@
   </div>
 </fieldset>
 
-<fieldset class="activities">
-  <legend>Register for Activities</legend>
-  <label><input type="checkbox" name="all"> Main Conference — $200</label>
-  <label><input type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm,
+
+<!-- ====================================================================
+                  REGISTER FOR ACTIVITIES SECTION
+===================================================================== -->
+<fieldset class="activities" id="Workshops">
+  <legend class="actitity-legend">Register for Activities</legend>
+  <label><input type="checkbox" name="all" value="200"> Main Conference — $200</label>
+  <label><input type="checkbox" name="js-frameworks" value="100"> JavaScript Frameworks Workshop — Tuesday 9am-12pm,
     $100</label>
-  <label><input type="checkbox" name="js-libs"> JavaScript Libraries Workshop — Tuesday 1pm-4pm, $100</label>
-  <label><input type="checkbox" name="express"> Express Workshop — Tuesday 9am-12pm, $100</label>
-  <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>
-  <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
-  <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
+  <label><input type="checkbox" name="js-libs" value="100"> JavaScript Libraries Workshop — Tuesday 1pm-4pm,
+    $100</label>
+  <label><input type="checkbox" name="express" value="100"> Express Workshop — Tuesday 9am-12pm, $100</label>
+  <label><input type="checkbox" name="node" value="100"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>
+  <label><input type="checkbox" name="build-tools" value="100"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
+  <label><input type="checkbox" name="npm" id="last" value="100"> npm Workshop — Wednesday 1pm-4pm, $100</label>
 </fieldset>
 
+
+<!-- ====================================================================
+                  PAYMENT INFO SECTION
+===================================================================== -->
 <fieldset>
   <legend>Payment Info</legend>
 
@@ -166,8 +184,8 @@
       Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
   </div>
 
-</fieldset>
 
+</fieldset>
 <button type="submit">Register</button>
 
     </form>
