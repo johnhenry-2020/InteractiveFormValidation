@@ -229,3 +229,123 @@ $node.change(function() {
 		$jslibs.prop('disabled', false);
 	}
 });
+/*===================================================================
+						Payment Info Functionality
+====================================================================*/
+
+//Variables needed in sections
+const paymentDiv = document.querySelector('#payment');
+const creditCard = document.querySelector('#credit-card');
+const payPal = document.querySelectorAll('fieldset div p')[0];
+const bitcoin = document.querySelectorAll('fieldset div p')[1];
+const ccNumber = document.getElementById('cc-num');
+const zip = document.getElementById('zip');
+const cvv = document.getElementById('cvv');
+const exDate = document.getElementById('exp-month');
+const exYear = document.getElementById('exp-year');
+
+//Hide all options until selection is made
+$(creditCard).hide();
+$(bitcoin).hide();
+$(payPal).hide();
+
+//Display payment sections based on payment option selectedValue
+paymentDiv.addEventListener('change', (e) => {
+	if (e.target.value === 'credit card') {
+		payPal.style.display = 'none';
+		creditCard.style.display = 'block';
+		bitcoin.style.display = 'none';
+		finalCCVal();
+		finalCVVVal();
+		finalZipVal();
+		paymentLegend.innerText = 'Payment Info';
+		paymentLegend.classList.remove('errorText');
+	}
+
+	if (e.target.value === 'paypal') {
+		payPal.style.display = 'block';
+		creditCard.style.display = 'none';
+		bitcoin.style.display = 'none';
+		paymentLegend.innerText = 'Payment Info';
+		paymentLegend.classList.remove('errorText');
+	}
+
+	if (e.target.value === 'bitcoin') {
+		payPal.style.display = 'none';
+		creditCard.style.display = 'none';
+		bitcoin.style.display = 'block';
+		paymentLegend.innerText = 'Payment Info';
+		paymentLegend.classList.remove('errorText');
+	}
+});
+
+//validation function for Credit Card info.
+function finalCCVal() {
+	if (ccNumber.value.length >= 13 && ccNumber.value.length <= 16) {
+		ccNumber.previousElementSibling.textContent = 'Card Number:';
+		ccNumber.previousElementSibling.classList.remove('errorText');
+		ccNumber.classList.remove('errorBox');
+		return true;
+	} else if (ccNumber.value.length === 0) {
+		//if CC is of incorrect length
+		ccNumber.previousElementSibling.classList.add('errorText');
+		ccNumber.previousElementSibling.innerText = 'Please enter a credit card number.';
+		ccNumber.classList.add('errorBox');
+	} else {
+		ccNumber.previousElementSibling.classList.add('errorText');
+		ccNumber.previousElementSibling.textContent = 'Please enter a number that is between 13 and 16 digits long.';
+		ccNumber.classList.add('errorBox');
+	}
+}
+
+//real time cc validation (calls the above function)
+function paymentVal() {
+	ccNumber.addEventListener('input', (e) => {
+		//if credit card # is of appropriate length..
+		finalCCVal();
+	});
+}
+
+//validation function for Zip Code Value
+function finalZipVal() {
+	//if credit card 5 digits long..
+	if (zip.value.length === 5) {
+		zip.previousElementSibling.textContent = 'Zip Code:';
+		zip.previousElementSibling.classList.remove('errorText');
+		zip.classList.remove('errorBox');
+		return true;
+	} else {
+		//if zip is of incorrect length
+		zip.previousElementSibling.classList.add('errorText');
+		zip.previousElementSibling.innerText = 'Please enter a valid zip code.';
+		zip.classList.add('errorBox');
+	}
+}
+
+//real time zip code validation (calls on the function above)
+zip.addEventListener('input', (e) => {
+	finalZipVal();
+});
+
+//Validation Function for CVV #
+function finalCVVVal() {
+	//if credit card 5 digits long..
+	if (cvv.value.length === 3) {
+		cvv.previousElementSibling.textContent = 'CCV:';
+		cvv.previousElementSibling.classList.remove('errorText');
+		cvv.classList.remove('errorBox');
+		return true;
+	} else {
+		//if zip is of incorrect length
+		cvv.previousElementSibling.classList.add('errorText');
+		cvv.previousElementSibling.innerText = 'Please enter the 3-digit CVV found on the back of the card.';
+		cvv.classList.add('errorBox');
+	}
+}
+
+//Real time ccv validation
+cvv.addEventListener('input', (e) => {
+	finalCVVVal();
+});
+
+paymentVal();
