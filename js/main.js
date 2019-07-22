@@ -48,12 +48,12 @@ input.placeholder = 'Your Job Role';
 						”Job Role” Functionality
 ==================================================================*/
 const jobRole = document.querySelector('form #title');
-const dropDown1 = jobRole.querySelectorAll('option')[0];
-const dropDown2 = jobRole.querySelectorAll('option')[1];
-const dropDown3 = jobRole.querySelectorAll('option')[2];
-const dropDown4 = jobRole.querySelectorAll('option')[3];
-const dropDown5 = jobRole.querySelectorAll('option')[4];
-const dropDown6 = jobRole.querySelectorAll('option')[5];
+const selection1 = jobRole.querySelectorAll('option')[0];
+const selection2 = jobRole.querySelectorAll('option')[1];
+const selection3 = jobRole.querySelectorAll('option')[2];
+const selection4 = jobRole.querySelectorAll('option')[3];
+const selection5 = jobRole.querySelectorAll('option')[4];
+const selection6 = jobRole.querySelectorAll('option')[5];
 
 /* hides job role input field in order to get job role
 input feature to work when JS is disabled in user's browser*/
@@ -87,11 +87,11 @@ const getSelectValue = () => {
 
 		//if job role OTHER THAN "other" selected...
 	} else if (
-		dropDown1.selected ||
-		dropDown2.selected ||
-		dropDown3.selected ||
-		dropDown4.selected ||
-		dropDown5.selected
+		selection1.selected ||
+		selection2.selected ||
+		selection3.selected ||
+		selection4.selected ||
+		selection5.selected
 	) {
 		jobRole.previousElementSibling.textContent = 'Your Job Role:';
 		jobRole.previousElementSibling.classList.remove('errorText');
@@ -396,28 +396,52 @@ paymentVal();
 ====================================================================*/
 //NAME FIELD
 //Sets the function for name validation
+
 const name = document.querySelector('form #name');
+//reference for RegEx validation: https://emailregex.com/
+const nameVal = /^[a-zA-Z ]{2,30}$/;
+
+//Email field
 function errorName() {
 	name;
+	//reference for RegEx validation: https://emailregex.com/
+	const nameVal = /^[a-zA-Z ]{2,30}$/;
+	//If email doesn't have any text...
 	if (name.value === '') {
-		name.previousElementSibling.innerText = 'Oops! You forgot to enter your name.';
 		name.previousElementSibling.classList.add('errorText');
+		name.previousElementSibling.innerText = 'Oops! You forgot to enter your name.';
 		name.classList.add('errorBox');
-		return false;
-	} else {
-		name.previousElementSibling.textContent = 'Name:';
+		//If email is correctly formatted...
+	} else if (email.value.match(nameVal)) {
+		name.previousElementSibling.textContent = 'Email:';
 		name.previousElementSibling.classList.remove('errorText');
 		name.classList.remove('errorBox');
 		return true;
+		//If email is incorrectly formatted...
+	} else {
+		name.previousElementSibling.classList.add('errorText');
+		name.previousElementSibling.innerText = 'Please enter a name.';
+		name.classList.add('errorBox');
+		return false;
 	}
 }
 
+//Live VALIDATION
 name.addEventListener('input', function() {
+	if (name.value.match(nameVal)) {
+		name.previousElementSibling.textContent = 'Name:';
+		name.previousElementSibling.classList.remove('errorText');
+		return true;
+	}
 	errorName();
 });
+
 name.addEventListener('focusout', function() {
 	errorName();
 });
+
+// ===============================================================
+
 const email = document.querySelector('form #mail');
 //reference for RegEx validation: https://emailregex.com/
 const emailVal = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
