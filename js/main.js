@@ -108,6 +108,7 @@ const clearColorOptions = () => {
 };
 
 //When user clicks a design option & it's value changes...
+// change method reference: https://www.w3schools.com/jquery/event_change.asp
 $($('#design')).on('change', function() {
 	//If user selects "Puns..."
 	if (design.value === 'js puns') {
@@ -149,6 +150,8 @@ let $total = 0;
 const activityType = document.querySelector('.activities');
 
 //when any checkbox is checked...
+// checkbox selector reference: https://api.jquery.com/checkbox-selector/
+// this keyword | reference: https://www.w3schools.com/js/js_this.asp
 $('input:checkbox').on('change', function() {
 	if ($(this).is(':checked')) {
 		//show the "total: " div
@@ -157,6 +160,7 @@ $('input:checkbox').on('change', function() {
 		$total += +this.value;
 
 		//add the checkbox value to the div
+		// checked selector reference:  https://api.jquery.com/checked-selector/#checked1
 		$('.total-display').html('Total: $' + parseInt($total));
 	} else if (($('#Workshops input:checkbox:checked').length = 1)) {
 		//if a checkbox is unselected, subtract value
@@ -183,7 +187,7 @@ function regValidation() {
 $('input:checkbox').on('click', regValidation);
 
 //Account for event overlaps.
-
+// Attribute Contains Selector[name *=”value”] reference: https://api.jquery.com/attribute-contains-selector/
 const $jsFrameWorks = $('input[name="js-frameworks"]');
 const $jslibs = $('input[name="js-libs"]');
 const $express = $('input[name="express"]');
@@ -243,7 +247,7 @@ const zip = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 const exDate = document.getElementById('exp-month');
 const exYear = document.getElementById('exp-year');
-
+const paymentLegend = document.querySelector('form .payment-legend');
 //Hide all options until selection is made
 $(creditCard).hide();
 $(bitcoin).hide();
@@ -280,6 +284,7 @@ paymentDiv.addEventListener('change', (e) => {
 });
 
 //validation function for Credit Card info.
+// HTML DOM previousElementSibling Property | reference: https://www.w3schools.com/jsref/prop_element_previouselementsibling.asp
 function finalCCVal() {
 	if (ccNumber.value.length >= 13 && ccNumber.value.length <= 16) {
 		ccNumber.previousElementSibling.textContent = 'Card Number:';
@@ -298,7 +303,7 @@ function finalCCVal() {
 	}
 }
 
-//real time cc validation (calls the above function)
+//real time cc validation (calls the above "finalCCVal" function)
 function paymentVal() {
 	ccNumber.addEventListener('input', (e) => {
 		//if credit card # is of appropriate length..
@@ -349,3 +354,117 @@ cvv.addEventListener('input', (e) => {
 });
 
 paymentVal();
+
+/*===================================================================
+						Form Validation Functionality
+====================================================================*/
+//NAME FIELD
+//Sets the function for name validation
+const name = document.querySelector('form #name');
+function errorName() {
+	name;
+	if (name.value === '') {
+		name.previousElementSibling.innerText = 'Oops! You forgot to enter your name.';
+		name.previousElementSibling.classList.add('errorText');
+		name.classList.add('errorBox');
+		return false;
+	} else {
+		name.previousElementSibling.textContent = 'Name:';
+		name.previousElementSibling.classList.remove('errorText');
+		name.classList.remove('errorBox');
+		return true;
+	}
+}
+
+name.addEventListener('input', function() {
+	errorName();
+});
+name.addEventListener('focusout', function() {
+	errorName();
+});
+const email = document.querySelector('form #mail');
+//reference for RegEx validation: https://emailregex.com/
+const emailVal = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+//Email field
+function errorEmail() {
+	name;
+	//reference for RegEx validation: https://emailregex.com/
+	const emailVal = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	//If email doesn't have any text...
+	if (email.value === '') {
+		email.previousElementSibling.classList.add('errorText');
+		email.previousElementSibling.innerText = 'Oops! You forgot to enter your email.';
+		email.classList.add('errorBox');
+		//If email is correctly formatted...
+	} else if (email.value.match(emailVal)) {
+		email.previousElementSibling.textContent = 'Email:';
+		email.previousElementSibling.classList.remove('errorText');
+		email.classList.remove('errorBox');
+		return true;
+		//If email is incorrectly formatted...
+	} else {
+		email.previousElementSibling.classList.add('errorText');
+		email.previousElementSibling.innerText = 'Please enter a valid email address.';
+		email.classList.add('errorBox');
+		return false;
+	}
+}
+
+//Live VALIDATION
+email.addEventListener('input', function() {
+	if (email.value.match(emailVal)) {
+		email.previousElementSibling.textContent = 'Email:';
+		email.previousElementSibling.classList.remove('errorText');
+		return true;
+	}
+	errorEmail();
+});
+
+email.addEventListener('focusout', function() {
+	errorEmail();
+});
+
+const submit = document.querySelector('button');
+// Final validation on submit button
+//Checks for name and email validation
+form.addEventListener('submit', (e) => {
+	('submit has been clicked');
+	if (!errorName() || !errorEmail()) {
+		('name or email has not run');
+		errorName();
+		errorEmail();
+		e.preventDefault();
+	}
+	//Prevents form from submitting if Credit Card info is not filled out.
+	if ($('#payment option[value="credit card"]').is(':selected')) {
+		finalCCVal();
+		finalCVVVal();
+		finalZipVal();
+		('cc worked');
+		if (!finalCCVal() || !finalCVVVal() || !finalZipVal()) {
+			e.preventDefault();
+		}
+		paymentLegend.innerText = 'Payment Info';
+		paymentLegend.classList.remove('errorText');
+	} else if ($('#payment option[value="paypal"]').is(':selected')) {
+		('paypal selected');
+		paymentLegend.innerText = 'Payment Info';
+		paymentLegend.classList.remove('errorText');
+	} else if ($('#payment option[value="bitcoin"]').is(':selected')) {
+		('bitcoin selected');
+		paymentLegend.innerText = 'Payment Info';
+		paymentLegend.classList.remove('errorText');
+	} else {
+		paymentLegend.innerText = 'Please Choose a Payment Method';
+		paymentLegend.classList.add('errorText');
+	}
+
+	//Checks for event registration
+	if ($('input:checked').length === 0) {
+		e.preventDefault();
+		('event reg is not selected');
+		activityLegend.innerText = 'Please choose an activity.';
+		activityLegend.classList.add('errorText');
+	}
+});

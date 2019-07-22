@@ -7,7 +7,9 @@
   <title>Treehouse Conference Registration</title>
   <!-- FONT IMPORTS | GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Anton|Raleway:100&display=swap" rel="stylesheet">
+  <!-- CASCADING STYLE SHEETS -->
   <link rel="stylesheet" href="./css/style.css">
+  <!-- FAVICON -->
   <link rel="shortcut icon" type="image/png" href="./static/images/treehouse-icon.png" />
 </head>
 
@@ -121,8 +123,8 @@
 <!-- ====================================================================
                   PAYMENT INFO SECTION
 ===================================================================== -->
-<fieldset>
-  <legend>Payment Info</legend>
+<fieldset id="payment">
+  <legend class="payment-legend">Payment Info</legend>
 
   <label for="payment">I'm going to pay with:</label>
   <select id="payment" name="user_payment">
@@ -174,25 +176,26 @@
     </select>
   </div>
 
-  <div>
+  <div class="PP">
     <p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when
       you click “Register” below.</p>
   </div>
 
-  <div>
+  <div class="BC">
     <p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information.
       Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
   </div>
 
 
 </fieldset>
-<button type="submit">Register</button>
+<button id="submit" type="submit">Register</button>
 
     </form>
 
   </div>
   <!-- JQUERY FILE(S) -->
   <script src="js/jQuery-v3.4.1.js"></script>
+  <!-- Jquery Lib. Responsible For Background Image Effects -->
   <script src="js/cycle.js"></script>
   <!-- JAVASCRIPT FILE(S) -->
   <script src="js/main.js"></script>

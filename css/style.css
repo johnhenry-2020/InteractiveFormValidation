@@ -95,6 +95,10 @@ label {
 	margin-bottom: .5em;
 }
 
+label.errorText {
+	color: #fffb00;
+}
+
 input,
 select {
 	margin-bottom: 1.125em;
@@ -115,6 +119,13 @@ input:focus {
 	border-color: rgb(43, 255, 0);
 	color: white;
 	transition: border-color .4s, background-color .4s;
+}
+
+#cc-num {
+	background-image: url('../static/images/cc-icons.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: right;
 }
 
 input[type="checkbox"],
