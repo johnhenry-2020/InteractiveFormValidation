@@ -273,12 +273,11 @@ $node.change(function() {
 						Payment Info Functionality
 ====================================================================*/
 
-//Variables needed in sections
+//global variables for the payment info section
 const paymentDiv = document.querySelector('#payment');
 const creditCard = document.querySelector('#credit-card');
 const payPal = document.querySelectorAll('fieldset div p')[0];
 const bitcoin = document.querySelectorAll('fieldset div p')[1];
-const ccNumber = document.getElementById('cc-num');
 const zip = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 const exDate = document.getElementById('exp-month');
@@ -286,10 +285,11 @@ const exYear = document.getElementById('exp-year');
 const paymentLegend = document.querySelector('form .payment-legend');
 
 // Set credit card selection to the default selection in payment in dropdown menu
+// Setting the default value in dropdown menus. REFERENCE: https://stackoverflow.com/questions/4781420/set-the-default-value-in-dropdownlist-using-jquery
 $('select option[value="credit card"]').attr('selected', true);
 
-//Hide all options until selection is made
-$(creditCard).hide();
+//Hide all options until selection is made except the default credit card option
+// $(creditCard).hide();
 $(bitcoin).hide();
 $(payPal).hide();
 
@@ -325,29 +325,60 @@ paymentDiv.addEventListener('change', (e) => {
 
 //validation function for Credit Card info.
 // HTML DOM previousElementSibling Property | reference: https://www.w3schools.com/jsref/prop_element_previouselementsibling.asp
-function finalCCVal() {
-	if (ccNumber.value.length >= 13 && ccNumber.value.length <= 16) {
+
+//CC FIELD VALIDATION
+//Sets the function for credit card validation
+
+//
+const ccNumber = document.getElementById('cc-num');
+
+// const cc = document.querySelector('form #name');
+const ccVal = /^[\d ]{13,16}$/;
+
+//Email field
+function errorCC() {
+	ccNumber;
+	const ccVal = /^[\d ]{13,16}$/;
+	//If email doesn't have any text...
+	if (ccNumber.value === '') {
+		ccNumber.previousElementSibling.classList.add('errorText');
+		ccNumber.previousElementSibling.innerText = 'Oops! You forgot to enter your credit card number.';
+		ccNumber.classList.add('errorBox');
+		//If email is correctly formatted...
+	} else if (ccNumber.value.match(ccVal)) {
 		ccNumber.previousElementSibling.textContent = 'Card Number:';
 		ccNumber.previousElementSibling.classList.remove('errorText');
 		ccNumber.classList.remove('errorBox');
 		return true;
-	} else if (ccNumber.value.length === 0) {
-		//if CC is of incorrect length
-		ccNumber.previousElementSibling.classList.add('errorText');
-		ccNumber.previousElementSibling.innerText = 'Please enter a credit card number.';
-		ccNumber.classList.add('errorBox');
+		//If credit card is incorrectly formatted...
 	} else {
 		ccNumber.previousElementSibling.classList.add('errorText');
-		ccNumber.previousElementSibling.textContent = 'Please enter a number that is between 13 and 16 digits long.';
+		ccNumber.previousElementSibling.innerText =
+			'Please try to enter an accurate credit card number between 13 & 16 digits long.';
 		ccNumber.classList.add('errorBox');
+		return false;
 	}
 }
 
-//real time cc validation (calls the above "finalCCVal" function)
+//Live VALIDATION
+ccNumber.addEventListener('input', function() {
+	if (ccNumber.value.match(ccVal)) {
+		ccNumber.previousElementSibling.textContent = 'LOOK AT ME!!!!!!!!!!!!!!!:';
+		ccNumber.previousElementSibling.classList.remove('errorText');
+		return true;
+	}
+	errorCC();
+});
+
+ccNumber.addEventListener('focusout', function() {
+	errorCC();
+});
+
+//real time cc validation (calls the above "errorCC" function)
 function paymentVal() {
 	ccNumber.addEventListener('input', (e) => {
 		//if credit card # is of appropriate length..
-		finalCCVal();
+		errorCC();
 	});
 }
 
@@ -445,7 +476,8 @@ name.addEventListener('focusout', function() {
 });
 
 // ===============================================================
-
+//EMAIL FIELD
+//sets the function for the email validation
 const email = document.querySelector('form #mail');
 //reference for RegEx validation: https://emailregex.com/
 const emailVal = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
