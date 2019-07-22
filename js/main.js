@@ -287,8 +287,6 @@ const paymentLegend = document.querySelector('form .payment-legend');
 
 // Set credit card selection to the default selection in payment in dropdown menu
 $('select option[value="credit card"]').attr('selected', true);
-// creditCard.style.display = 'block';
-// $(creditCard).hide();
 
 //Hide all options until selection is made
 $(creditCard).hide();
