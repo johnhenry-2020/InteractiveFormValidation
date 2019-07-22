@@ -299,7 +299,7 @@ paymentDiv.addEventListener('change', (e) => {
 		payPal.style.display = 'none';
 		creditCard.style.display = 'block';
 		bitcoin.style.display = 'none';
-		finalCCVal();
+		errorCC();
 		finalCVVVal();
 		finalZipVal();
 		paymentLegend.innerText = 'Payment Info';
@@ -329,22 +329,21 @@ paymentDiv.addEventListener('change', (e) => {
 //CC FIELD VALIDATION
 //Sets the function for credit card validation
 
-//
+//access to the credit card input field
 const ccNumber = document.getElementById('cc-num');
-
-// const cc = document.querySelector('form #name');
+//regex for credit card validation (only accepts digits and a total between 13 and 16 digits)
 const ccVal = /^[\d ]{13,16}$/;
 
-//Email field
+//Credit card field
 function errorCC() {
 	ccNumber;
 	const ccVal = /^[\d ]{13,16}$/;
-	//If email doesn't have any text...
+	//If credit card doesn't have any input...
 	if (ccNumber.value === '') {
 		ccNumber.previousElementSibling.classList.add('errorText');
 		ccNumber.previousElementSibling.innerText = 'Oops! You forgot to enter your credit card number.';
 		ccNumber.classList.add('errorBox');
-		//If email is correctly formatted...
+		//If credit card  is correctly formatted...
 	} else if (ccNumber.value.match(ccVal)) {
 		ccNumber.previousElementSibling.textContent = 'Card Number:';
 		ccNumber.previousElementSibling.classList.remove('errorText');
@@ -360,15 +359,15 @@ function errorCC() {
 	}
 }
 
-//Live VALIDATION
-ccNumber.addEventListener('input', function() {
-	if (ccNumber.value.match(ccVal)) {
-		ccNumber.previousElementSibling.textContent = 'LOOK AT ME!!!!!!!!!!!!!!!:';
-		ccNumber.previousElementSibling.classList.remove('errorText');
-		return true;
-	}
-	errorCC();
-});
+// //Live VALIDATION
+// ccNumber.addEventListener('input', function() {
+// 	if (ccNumber.value.match(ccVal)) {
+// 		ccNumber.previousElementSibling.textContent = 'LOOK AT ME!!!!!!!!!!!!!!!:';
+// 		ccNumber.previousElementSibling.classList.remove('errorText');
+// 		return true;
+// 	}
+// 	errorCC();
+// });
 
 ccNumber.addEventListener('focusout', function() {
 	errorCC();
@@ -377,7 +376,7 @@ ccNumber.addEventListener('focusout', function() {
 //real time cc validation (calls the above "errorCC" function)
 function paymentVal() {
 	ccNumber.addEventListener('input', (e) => {
-		//if credit card # is of appropriate length..
+		//if credit card # is of appropriate length and comprimised entirely of digits/integers...
 		errorCC();
 	});
 }
@@ -534,11 +533,11 @@ form.addEventListener('submit', (e) => {
 	}
 	//Prevents form from submitting if Credit Card info is not filled out.
 	if ($('#payment option[value="credit card"]').is(':selected')) {
-		finalCCVal();
+		errorCC();
 		finalCVVVal();
 		finalZipVal();
 		('cc worked');
-		if (!finalCCVal() || !finalCVVVal() || !finalZipVal()) {
+		if (!errorCC() || !finalCVVVal() || !finalZipVal()) {
 			e.preventDefault();
 		}
 		paymentLegend.innerText = 'Payment Info';
