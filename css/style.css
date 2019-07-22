@@ -105,6 +105,7 @@ select {
 }
 
 input {
+	color: white;
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
@@ -133,6 +134,12 @@ input[type="radio"] {
 	display: inline-block;
 }
 
+/* disabled pseudo class manipulation | Reference:
+https://developer.mozilla.org/en-US/docs/Web/CSS/:disabled */
+input[type="checkbox"]:disabled {
+	border: 1px solid red;
+}
+
 button {
 	color: #fff;
 	padding: .55em 1.25em;
@@ -144,7 +151,7 @@ button {
 	transition: all 0.5s;
 	animation: pulse 2s infinite;
 }
-/* Credit:
+/* Pulse Effect | Reference:
 https://stackoverflow.com/questions/44513333/how-to-create-a-pulse-effect-on-an-image-for-a-couple-seconds-when-the-page-load
 */
 @-webkit-keyframes pulse {
@@ -183,6 +190,15 @@ input,
 select,
 option {
 	font-family: 'roboto', sans-serif;
+}
+
+legend.payment-legend.errorText,
+legend.actitity-legend.errorText,
+label.errorText {
+	color: red;
+	font-family: sans-serif;
+	font-size: 2vh;
+	font-weight: bold;
 }
 
 /* =================================
