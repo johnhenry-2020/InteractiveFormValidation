@@ -47,6 +47,14 @@ input.placeholder = 'Your Job Role';
 /*=================================================================
 						”Job Role” Functionality
 ==================================================================*/
+const jobRole = document.querySelector('form #title');
+const dropDown1 = jobRole.querySelectorAll('option')[0];
+const dropDown2 = jobRole.querySelectorAll('option')[1];
+const dropDown3 = jobRole.querySelectorAll('option')[2];
+const dropDown4 = jobRole.querySelectorAll('option')[3];
+const dropDown5 = jobRole.querySelectorAll('option')[4];
+const dropDown6 = jobRole.querySelectorAll('option')[5];
+
 /* hides job role input field in order to get job role
 input feature to work when JS is disabled in user's browser*/
 $('#js-disabled-input').hide();
@@ -61,6 +69,33 @@ const getSelectValue = () => {
 		const appendedDiv = currentDiv.appendChild(newDiv);
 		//show the new text field
 		input.style.display = 'block';
+
+		//validate it...
+		//if this option is chosen and there is no input....
+		appendedDiv.addEventListener('input', () => {
+			if (input.value === '') {
+				$('#other-title').focus();
+				jobRole.previousElementSibling.textContent = 'Oops! You forgot to type in your job role.';
+				jobRole.previousElementSibling.classList.add('errorText');
+				return false;
+				//if this option is chosen and there is input...
+			} else {
+				jobRole.previousElementSibling.classList.remove('errorText');
+				document.getElementById('other-title').focus();
+			}
+		});
+
+		//if job role OTHER THAN "other" selected...
+	} else if (
+		dropDown1.selected ||
+		dropDown2.selected ||
+		dropDown3.selected ||
+		dropDown4.selected ||
+		dropDown5.selected
+	) {
+		jobRole.previousElementSibling.textContent = 'Your Job Role:';
+		jobRole.previousElementSibling.classList.remove('errorText');
+		input.style.display = 'none';
 	}
 };
 //executing getSelectValue whereby the menu is ready to respond to user interaction @ any time
@@ -152,6 +187,7 @@ const activityType = document.querySelector('.activities');
 //when any checkbox is checked...
 // checkbox selector reference: https://api.jquery.com/checkbox-selector/
 // this keyword | reference: https://www.w3schools.com/js/js_this.asp
+// this keyword | reference material: https://teamtreehouse.com/library/understanding-this-in-javascript-2
 $('input:checkbox').on('change', function() {
 	if ($(this).is(':checked')) {
 		//show the "total: " div
@@ -172,7 +208,7 @@ $('input:checkbox').on('change', function() {
 
 //REAL TIME REGISTRATION VALIDATION
 function regValidation() {
-	var n = $('input:checked').length;
+	let n = $('input:checked').length;
 	if (n === 0) {
 		$('.totalDiv').addClass('is-hidden');
 
