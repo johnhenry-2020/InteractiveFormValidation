@@ -6,7 +6,7 @@
 }
 
 body {
-	background-image: url('/static/images/405.png');
+	background-image: url('https://johnhenry-2020.github.io/techdegree-project-3/static/images/405.png');
 	background-position: right 10vh;
 	background-repeat: no-repeat;
 	background-size: cover;
