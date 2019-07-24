@@ -277,7 +277,9 @@ $node.change(function() {
 const paymentDiv = document.querySelector('#payment');
 const creditCard = document.querySelector('#credit-card');
 const payPal = document.querySelectorAll('fieldset div p')[0];
+const ppLogo = document.getElementById('ppLogo');
 const bitcoin = document.querySelectorAll('fieldset div p')[1];
+const bbLogo = document.getElementById(bcLogo);
 const zip = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 const exDate = document.getElementById('exp-month');
@@ -290,15 +292,20 @@ $('select option[value="credit card"]').attr('selected', true);
 
 //Hide all options until selection is made except the default credit card option
 // $(creditCard).hide();
-$(bitcoin).hide();
+$(ppLogo).hide();
+$(bcLogo).hide();
 $(payPal).hide();
+$(bitcoin).hide();
 
 //Display payment sections based on payment option selectedValue
 paymentDiv.addEventListener('change', (e) => {
 	if (e.target.value === 'credit card') {
 		payPal.style.display = 'none';
+		ppLogo.style.display = 'none';
+		ppLogo.style.display = 'none';
 		creditCard.style.display = 'block';
 		bitcoin.style.display = 'none';
+		bcLogo.style.display = 'none';
 		errorCC();
 		finalCVVVal();
 		finalZipVal();
@@ -308,16 +315,20 @@ paymentDiv.addEventListener('change', (e) => {
 
 	if (e.target.value === 'paypal') {
 		payPal.style.display = 'block';
+		ppLogo.style.display = 'block';
 		creditCard.style.display = 'none';
 		bitcoin.style.display = 'none';
+		bcLogo.style.display = 'none';
 		paymentLegend.innerText = 'Payment Info';
 		paymentLegend.classList.remove('errorText');
 	}
 
 	if (e.target.value === 'bitcoin') {
 		payPal.style.display = 'none';
+		ppLogo.style.display = 'none';
 		creditCard.style.display = 'none';
 		bitcoin.style.display = 'block';
+		bcLogo.style.display = 'block';
 		paymentLegend.innerText = 'Payment Info';
 		paymentLegend.classList.remove('errorText');
 	}

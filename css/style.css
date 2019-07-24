@@ -227,16 +227,33 @@ label.errorText {
   Slideshow Styles
 ==================================== */
 
-#slideshow,
-img {
+#slideshow {
 	min-height: 100%;
 	min-width: 1024px;
 	width: 100%;
-	height: auto;
+	/* height: auto; */
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: -9999;
+	display: grid;
+	height: 100%;
+}
+
+#slideshow img {
+	max-width: 100%;
+	max-height: 100vh;
+	margin: auto;
+	height: 100vh;
+	width: 100%;
+}
+
+#ppLogo,
+#bcLogo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
 
 /* =================================
