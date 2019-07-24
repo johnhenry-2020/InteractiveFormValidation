@@ -432,7 +432,7 @@ function errorName() {
 		name.previousElementSibling.classList.add('errorText');
 		name.previousElementSibling.innerText = 'Oops! You forgot to enter your name.';
 		name.classList.add('errorBox');
-		//If name is correctly formatted...
+		//If name is CORRECTLY formatted...
 	} else if (name.value.match(nameVal)) {
 		name.previousElementSibling.textContent = 'Name:';
 		name.previousElementSibling.classList.remove('errorText');
