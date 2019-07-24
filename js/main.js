@@ -373,7 +373,7 @@ function paymentVal() {
 
 //validation function for Zip Code Value
 function finalZipVal() {
-	const zipVal = /^[\d]{5}$/;
+	const zipVal = /^[\d]{5}$/i;
 	//if zip code is 5 digits long and the regular expression validating the zip is correct/true...
 	if (zip.value.length === 5 && zip.value.match(zipVal)) {
 		zip.previousElementSibling.textContent = 'Zip Code:';
@@ -392,7 +392,7 @@ function finalZipVal() {
 zip.addEventListener('input', (e) => {
 	finalZipVal();
 });
-const cvvVal = /^[\d]{3}$/;
+const cvvVal = /^[\d]{3}$/i;
 //Validation Function for CVV #
 function finalCVVVal() {
 	//if credit card's cvv code matches RegEx and is 3 digits long..
