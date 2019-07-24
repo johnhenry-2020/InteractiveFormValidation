@@ -6,7 +6,7 @@
 }
 
 body {
-	background-image: url('/Users/johnhenry/Desktop/techDegree/unit3/static/images/405.png');
+	background-image: url('/static/images/405.png');
 	background-position: right 10vh;
 	background-repeat: no-repeat;
 	background-size: cover;
