@@ -417,32 +417,28 @@ cvv.addEventListener('input', (e) => {
 paymentVal();
 
 /*===================================================================
-						Form Validation Functionality
+						Overall Form Validation Functionality
 ====================================================================*/
 //NAME FIELD
 //Sets the function for name validation
 
 const name = document.querySelector('form #name');
-//reference for RegEx validation: https://emailregex.com/
-const nameVal = /^[a-zA-Z ]{2,30}$/;
+const nameVal = /^[a-zA-Z]{2,}$/;
 
 //Email field
 function errorName() {
-	name;
-	//reference for RegEx validation: https://emailregex.com/
-	const nameVal = /^[a-zA-Z ]{2,30}$/;
 	//If email doesn't have any text...
 	if (name.value === '') {
 		name.previousElementSibling.classList.add('errorText');
 		name.previousElementSibling.innerText = 'Oops! You forgot to enter your name.';
 		name.classList.add('errorBox');
-		//If email is correctly formatted...
-	} else if (email.value.match(nameVal)) {
-		name.previousElementSibling.textContent = 'Email:';
+		//If name is correctly formatted...
+	} else if (name.value.match(nameVal)) {
+		name.previousElementSibling.textContent = 'Name:';
 		name.previousElementSibling.classList.remove('errorText');
 		name.classList.remove('errorBox');
 		return true;
-		//If email is incorrectly formatted...
+		//If name is INCORRECTLY formatted...
 	} else {
 		name.previousElementSibling.classList.add('errorText');
 		name.previousElementSibling.innerText = 'Please enter a name.';
@@ -474,9 +470,7 @@ const emailVal = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@
 
 //Email field
 function errorEmail() {
-	name;
 	//reference for RegEx validation: https://emailregex.com/
-	const emailVal = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	//If email doesn't have any text...
 	if (email.value === '') {
 		email.previousElementSibling.classList.add('errorText');
