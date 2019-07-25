@@ -434,7 +434,9 @@ paymentVal();
 //Sets the function for name validation
 
 const name = document.querySelector('form #name');
-const nameVal = /^[a-zA-Z]{2,}$/;
+// Name Validation - Reference: https://stackoverflow.com/questions/5599934/regular-expression-that-allows-spaces-in-a-string-but-not-only-blank-spaces
+//this RegEx takes into account white spaces so as to allow for spaces but not an empty string when submitting form
+const nameVal = /^(?!\s*$)[-a-zA-Z0-9_:,.' ']{1,100}$/;
 
 //Email field
 function errorName() {
